@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Enterpriseape</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+
+  <div class="container">
+  	<ul class="nav nav-tabs">
+		<li><%= link_to "Accueil", root_path %></li>
+		<li><%= link_to "À propos", welcome_about_path %></li>
+		<li><%= link_to "Contact", welcome_contact_path %></li>
+		<li><%= link_to "Features", welcome_features_path %></li>
+		<li><%= link_to "FAQs", welcome_faq_path %></li>
+		<li><%= link_to "Pricing", welcome_pricing_path %></li>
+		<li><%= link_to "Invoices", invoices_path %></li>
+
+		<% if current_user %>
+			<li><%= link_to "Déconnexion", destroy_user_session_path, method: :delete %></li>
+		<% else %>
+			<li><%= link_to "Inscription", new_user_registration_path %></li>
+			<li><%= link_to "Connexion", new_user_session_path %></li>
+		<% end %>
+	</ul>
+
+	<% if flash[:notice] %>
+		<div class="alert alert-success">
+			<button type="button"  class="close" data-dismiss="alert" aria-label="close">&times;</button>
+			<%= flash[:notice] %>
+		</div>
+	<% elsif flash[:error] %>
+		<div class="alert alert-danger">
+			<button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+			<%= flash[:error] %>
+		</div>	
+	<% elsif flash[:alert] %>
+		<div class="alert alert-warning">
+			<button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+			<%= flash[:alert] %>
+		</div>	
+	<% end %>
+	<%= yield %>
+
+	</div>
+  </body>
+</html>
